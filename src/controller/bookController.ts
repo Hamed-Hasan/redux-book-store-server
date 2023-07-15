@@ -64,3 +64,15 @@ export const filterBooksByGenre = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
+export const filterBooksByYear = async (req, res) => {
+  try {
+    const year = parseInt(req.query.year?.toString() || '');
+    const books = await Book.find({ publicationYear: year });
+    res.json(books);
+  } catch (error) {
+    console.error('Error occurred while filtering books by year:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
