@@ -23,3 +23,18 @@ export const getBookById = async (req: Request, res: Response) => {
   }
 };
 
+export const addNewBook = async (req: Request, res: Response) => {
+  try {
+    const { title, author, genre, publicationDate } = req.body;
+    const newBook: IBook = new Book({
+      title,
+      author,
+      genre,
+      publicationDate,
+    });
+    const savedBook = await newBook.save();
+    res.json(savedBook);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
