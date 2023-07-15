@@ -38,3 +38,17 @@ export const addNewBook = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
+export const searchBooks = async (req, res) => {
+  try {
+    console.log('Search books endpoint called'); // Check if the function is being executed
+    const searchTerm = req.query.searchTerm?.toString() || '';
+    console.log('Search term:', searchTerm); // Log the search term
+    // ... rest of the code ...
+    res.json(books);
+  } catch (error) {
+    console.error('Error occurred while searching books:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
