@@ -52,3 +52,15 @@ export const searchBooks = async (req, res) => {
   }
 };
 
+
+
+export const filterBooksByGenre = async (req, res) => {
+  try {
+    const genre = req.query.genre?.toString() || '';
+    const books = await Book.find({ genre });
+    res.json(books);
+  } catch (error) {
+    console.error('Error occurred while filtering books by genre:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
