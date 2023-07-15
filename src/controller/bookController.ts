@@ -76,3 +76,26 @@ export const filterBooksByYear = async (req, res) => {
   }
 };
 
+
+// updateBook API route
+export const updateBook = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, author, genre, publicationDate } = req.body;
+    const book = await Book.findById(id);
+
+    if (!book) {
+      return res.status(404).json({ error: 'Book not found' });
+    }
+
+    book.title = title;
+    book.author = author;
+    book.genre = genre;
+    book.publicationDate = publicationDate;
+
+    const updatedBook = await book.save();
+    res.json(updatedBook);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
