@@ -29,6 +29,24 @@ export const addComment = async (req: Request, res: Response) => {
   
   
 
+export const getComments = async (req: Request, res: Response) => {
+    const { bookId } = req.params;
+    console.log(bookId);
+  
+    try {
+      let query = {};
+      if (mongoose.Types.ObjectId.isValid(bookId)) {
+        query = { bookId: new mongoose.Types.ObjectId(bookId) };
+      }
+      const comments = await Comment.find(query);
+      console.log(comments);
+      res.json(comments);
+    } catch (error) {
+      console.error('Failed to fetch comments:', error);
+      res.status(500).json({ error: 'Failed to fetch comments' });
+    }
+  };
+  
   
   
   
