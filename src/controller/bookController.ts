@@ -25,20 +25,22 @@ export const getBookById = async (req: Request, res: Response) => {
 
 export const addNewBook = async (req: Request, res: Response) => {
   try {
-    const { title, author, genre, publicationDate } = req.body;
+    const { title, author, genre, publicationDate, image } = req.body;
+
     const newBook: IBook = new Book({
       title,
       author,
       genre,
       publicationDate,
+      image, // Store the image URL
     });
+
     const savedBook = await newBook.save();
     res.json(savedBook);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
-
 export const searchBooks = async (req, res) => {
   try {
     console.log('Search books endpoint called'); // Check if the function is being executed
@@ -81,7 +83,7 @@ export const filterBooksByYear = async (req, res) => {
 export const updateBook = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, author, genre, publicationDate } = req.body;
+    const { title, author, genre, publicationDate, image } = req.body;
     const book = await Book.findById(id);
 
     if (!book) {
@@ -92,6 +94,7 @@ export const updateBook = async (req, res) => {
     book.author = author;
     book.genre = genre;
     book.publicationDate = publicationDate;
+    book.image = image; // Set the updated image field
 
     const updatedBook = await book.save();
     res.json(updatedBook);
@@ -99,6 +102,7 @@ export const updateBook = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
 
 export const deleteBook = async (req, res) => {
   try {
@@ -114,3 +118,4 @@ export const deleteBook = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+

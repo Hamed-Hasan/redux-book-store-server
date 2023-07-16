@@ -14,6 +14,13 @@ const MONGODB_URI = process.env.MONGODB_URI || '';
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+})
+.then(() => {
+  console.log('Connected to MongoDB');
+  // Your server setup and route handling
+})
+.catch((error) => {
+  console.error('Failed to connect to MongoDB:', error);
 });
 
 app.use(cors());

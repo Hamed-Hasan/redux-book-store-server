@@ -5,6 +5,7 @@ export interface IBook extends Document {
   author: string;
   genre: string;
   publicationDate: Date;
+  image: string; // Store the image URL as a string
 }
 
 const bookSchema = new Schema({
@@ -22,6 +23,10 @@ const bookSchema = new Schema({
   },
   publicationDate: {
     type: Date,
+    required: true,
+  },
+  image: {
+    type: String,
     required: true,
   },
 });

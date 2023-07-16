@@ -1,14 +1,19 @@
 import express from 'express';
 import {
+
   addNewBook,
   deleteBook,
   filterBooksByGenre,
   filterBooksByYear,
   getAllBooks,
   getBookById,
+
   searchBooks,
   updateBook,
 } from '../controller/bookController';
+import { addComment, getComments } from '../controller/commentController';
+
+
 
 const router = express.Router();
 
@@ -35,5 +40,12 @@ router.put('/books/:id', updateBook);
 
 // Delete a book by ID
 router.delete('/books/:id', deleteBook);
+
+
+// Add a new comment for a book
+router.post('/comment/:bookId', addComment);
+
+// Get comments for a book
+router.get('/comment/:bookId', getComments);
 
 export default router;
